@@ -19,8 +19,8 @@ class Users:
     lista:[User] = []
     
     @staticmethod
-    def crear(nickname: str, image: str) -> User:
-        """Method to register users objects type (nickname, image, game id) in a users' list"""
-        user = User(nickname: str, image: int, gameid=int)
+    def crear(nickname: str, image: int, gameid) -> User:
+        """Method to register users objects type (nickname, image, game id) in users' list"""
+        user = User(nickname, image, gameid)
         Users.lista.append(user)
         return user
