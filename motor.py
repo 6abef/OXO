@@ -72,7 +72,7 @@ class Row:
 
 
 r1 = Row
-# r1.display() # I get this error to solve: Row.display() missing 1 required positional argument: 'self' 
+r1.display()
 # r1.set_row_status(1, 2)  # Why does all cells change its values?
 
 
