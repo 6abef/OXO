@@ -6,8 +6,9 @@ from enum import Enum, auto
 from dataclasses import dataclass
 
 
-
-class Cellstate(Enum):#Do not use @dataclass cause Enum inherit its own __str__ method
+class Cellstate(
+    Enum
+):  # Do not use @dataclass cause Enum inherit its own __str__ method
     """Cell states class to choice between circle, cross or blank as attributs"""
 
     blank = auto()  # value = 1
@@ -19,8 +20,8 @@ class Cellstate(Enum):#Do not use @dataclass cause Enum inherit its own __str__ 
 class Cellstatus:
     """Cell status class to set or get their status"""
 
-    status : Cellstate
-    
+    status: Cellstate
+
     def __init__(self):
         """Initialize cellstatus for blank by default"""
         self.status = Cellstate.blank
@@ -52,9 +53,10 @@ class Cellstatus:
 class Row:
     """Row class to define the status of its three cells"""
 
-    cell1 : Cellstatus
-    cell2 : Cellstatus
-    cell3 : Cellstatus
+    cell1: Cellstatus
+    cell2: Cellstatus
+    cell3: Cellstatus
+
     def __init__(self):
         """Define a cellstatus object for each cell in a new row"""
         self.cell1 = Cellstatus()
@@ -81,20 +83,20 @@ class Row:
 # r1 = Row()
 # print(r1)
 # print(repr(r1))
-# r1.set_row_status(1, 2)  
-# r1.set_row_status(2, 3) 
-# r1.set_row_status(3, 2) 
+# r1.set_row_status(1, 2)
+# r1.set_row_status(2, 3)
+# r1.set_row_status(3, 2)
 
 
 @dataclass
 class Board:
     """Board class to set the status of their three rows"""
-    row1 : Row
-    row2 : Row
-    row3 : Row
-    users : Users
-    gameid : int
 
+    row1: Row
+    row2: Row
+    row3: Row
+    users: Users
+    gameid: int
 
     def __init__(self, users: Users, gameid: int):
         self.row1 = Row()
@@ -102,10 +104,11 @@ class Board:
         self.row3 = Row()
         self.users = users
         self.gameid = gameid
-    
+
     def __str__(self) -> str:
         """Print fonction of Board Class"""
         return f"{self.gameid} status:\n{self.row1} \n{self.row2} \n{self.row1}"
+
 
 # u=Users()
 # u.new("User1", 1, 1)
