@@ -6,8 +6,8 @@ from enum import Enum, auto
 from dataclasses import dataclass
 
 
-@dataclass
-class Cellstate(Enum):
+
+class Cellstate(Enum):#Do not use @dataclass cause Enum inherit its own __str__ method
     """Cell states class to choice between circle, cross or blank as attributs"""
 
     blank = auto()  # value = 1
@@ -19,14 +19,16 @@ class Cellstate(Enum):
 class Cellstatus:
     """Cell status class to set or get their status"""
 
-    status = Cellstate.blank
+    status : Cellstate
+    
+    def __init__(self):
+        """Initialize cellstatus for blank by default"""
+        self.status = Cellstate.blank
 
-    @classmethod
     def get_status(self):
         """Method to get the name of last saved cell status"""
         return self.status.name
 
-    @classmethod
     def set_status(self, state: int) -> None:
         """Method to set blank(1), circle(2) or cross(3) state"""
         match state:
@@ -50,50 +52,68 @@ class Cellstatus:
 class Row:
     """Row class to define the status of its three cells"""
 
-    cell1 = Cellstatus
-    cell2 = Cellstatus
-    cell3 = Cellstatus
+    cell1 : Cellstatus
+    cell2 : Cellstatus
+    cell3 : Cellstatus
+    def __init__(self):
+        """Define a cellstatus object for each cell in a new row"""
+        self.cell1 = Cellstatus()
+        self.cell2 = Cellstatus()
+        self.cell3 = Cellstatus()
 
-    def display(self) -> None:
-        print( f"In this row: {self.cell1.get_status()} | {self.cell2.get_status()} | {self.cell3.get_status()}")
+    def __str__(self) -> str:
+        return f"{self.cell1.get_status()} | {self.cell2.get_status()} | {self.cell3.get_status()}"
 
-    def set_row_status(self, colomn: int, state: int) -> None:
-        """Method to change a given cell in colomn 1-3 for blank(1), circle(2) or cross(3) state"""
-        match colomn:
+    def set_row_status(self, column: int, state: int) -> None:
+        """Method to change a given cell in column 1-3 for blank(1), circle(2) or cross(3) state"""
+        match column:
             case 1:
                 self.cell1.set_status(state)
-                print(
-                    f"{self.cell1.get_status()} {self.cell2.get_status()} {self.cell1.get_status()}"
-                )
+                print(self)
             case 2:
                 self.cell2.set_status(state)
+                print(self)
             case 3:
                 self.cell3.set_status(state)
+                print(self)
+            case _:
+                print(
+                    "Invalid case. Choose an available state: blank(1), circle(2) or cross(3) "
+                )
 
 
-r1 = Row
-# r1.display() # I get this error to solve: Row.display() missing 1 required positional argument: 'self' 
-# r1.set_row_status(1, 2)  # Why does all cells change its values?
+# r1 = Row()
+# print(r1)
+# print(repr(r1))
+# r1.set_row_status(1, 2)  
+# r1.set_row_status(2, 3) 
+# r1.set_row_status(3, 2) 
 
 
 @dataclass
 class Board:
     """Board class to set the status of their three rows"""
+    row1 : Row
+    row2 : Row
+    row3 : Row
+    users : Users
+    gameid : int
+
 
     def __init__(self, users: Users, gameid: int):
-        self.row1 = Row
-        self.row2 = Row
-        self.row3 = Row
+        self.row1 = Row()
+        self.row2 = Row()
+        self.row3 = Row()
         self.users = users
         self.gameid = gameid
     
-    def display(self) -> str:
+    def __str__(self) -> str:
         """Print fonction of Board Class"""
-        return f"{self.gameid}) status:/n  {self.row1.display} /n  {self.row2.display} /n  {self.row1.display}"
+        return f"{self.gameid} status:\n{self.row1} \n{self.row2} \n{self.row1}"
 
 # u=Users()
 # u.new("User1", 1, 1)
 # u.new("User2", 1, 1)
 
 # b = Board(u, 1)
-# print(b.display())
+# print(b)
