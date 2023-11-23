@@ -64,9 +64,9 @@ class Row:
     def __str__(self) -> str:
         return f"{self.cell1.get_status()} | {self.cell2.get_status()} | {self.cell3.get_status()}"
 
-    def set_row_status(self, colomn: int, state: int) -> None:
-        """Method to change a given cell in colomn 1-3 for blank(1), circle(2) or cross(3) state"""
-        match colomn:
+    def set_row_status(self, column: int, state: int) -> None:
+        """Method to change a given cell in column 1-3 for blank(1), circle(2) or cross(3) state"""
+        match column:
             case 1:
                 self.cell1.set_status(state)
                 print(self)
@@ -76,6 +76,10 @@ class Row:
             case 3:
                 self.cell3.set_status(state)
                 print(self)
+            case _:
+                print(
+                    "Invalid case. Choose an available state: blank(1), circle(2) or cross(3) "
+                )
 
 
 # r1 = Row()
