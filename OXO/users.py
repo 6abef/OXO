@@ -1,7 +1,9 @@
 """ 
 This file contains the user class and the userslist
 """
-from typing import TypeAlias  # "from typing_extensions" in Python 3.9 and earlier
+from typing import (
+    TypeAlias,
+)  # "from typing_extensions" in Python 3.9 and earlier
 
 UserIdType: TypeAlias = int  # declare a type alias that coud be changed easily
 
